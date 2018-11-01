@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eux
 
-export SOLR_VERSION=7.5.0
+export SOLR_VERSION=6.6.5
 export SOLR_FOLDER=solr-${SOLR_VERSION}
 export SOLR_TAR=${SOLR_FOLDER}.tgz
 
@@ -18,7 +18,7 @@ bash -c "while ! nc -z localhost 8983; do sleep 1; done"
 bash -c "while ! nc -z localhost 8984; do sleep 1; done"
 
 # Create the collection, 1 shard, 2 replicas
-bash -c "curl 'http://localhost:8983/solr/admin/collections?action=CREATE&name=test&replicationFactor=2&numShards=1'"
+./solr-1/bin/solr create -c test -d data_driven_schema_configs -shards 1 -replicationFactor 2
 
 # Check collection status
 bash -c "curl 'http://localhost:8983/solr/admin/collections?action=clusterstatus&wt=json'"
