@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eux
 
-export SOLR_VERSION=6.6.5
+export SOLR_VERSION=5.5.5
 export SOLR_FOLDER=solr-${SOLR_VERSION}
 export SOLR_TAR=${SOLR_FOLDER}.tgz
 
