@@ -11,7 +11,7 @@ docker-compose run --rm tester bash -c "while ! nc -z solr-1 8983; do sleep 1; d
 docker-compose run --rm tester bash -c "while ! nc -z solr-2 8983; do sleep 1; done"
 
 # Create the collection, 1 shard, 2 replicas
-docker-compose run --rm tester bash -c "curl 'http://solr-1:8983/solr/admin/collections?action=CREATE&name=test&replicationFactor=2&numShards=1'"
+docker-compose exec solr-1 bin/solr create -c test -d data_driven_schema_configs -shards 1 -replicationFactor 2
 
 # Check collection status
 docker-compose run --rm tester bash -c "curl 'http://solr-1:8983/solr/admin/collections?action=clusterstatus&wt=json'"
